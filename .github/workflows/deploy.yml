@@ -1,4 +1,4 @@
-name: Deploy Widgets
+name: Deploy Web
 
 on:
   push:
