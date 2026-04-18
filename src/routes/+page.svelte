@@ -125,7 +125,7 @@
 						<img
 							alt="Персонаж Sapa TV"
 							class="w-56 sm:w-80 md:w-96 h-auto rounded-xl object-cover"
-							src="/avatar.png"
+							src="/avatar.jpg"
 						/>
 					</div>
 				</div>

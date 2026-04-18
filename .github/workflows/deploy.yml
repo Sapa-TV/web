@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Cleanup old files
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.HOST }}
           username: "deploy"
@@ -33,7 +33,7 @@ jobs:
           script: rm -rf /var/www/home/*
 
       - name: Deploy to VPS via SCP
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.HOST }}
           username: "deploy"
