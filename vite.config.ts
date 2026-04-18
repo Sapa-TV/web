@@ -7,6 +7,16 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({
+			workbox: {
+				navigateFallbackDenylist: [/^\/widgets/],
+				runtimeCaching: [
+					{
+						urlPattern: /^\/widgets\/.*/,
+						handler: 'NetworkOnly',
+					}
+				],
+				globIgnores: ['**/widgets/**/*']
+			},
 			devOptions: {
 				enabled: true,
 				type: "module",

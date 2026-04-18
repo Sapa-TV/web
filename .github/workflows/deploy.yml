@@ -24,20 +24,12 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Cleanup old files
-        uses: appleboy/ssh-action@v1
+      - name: Deploy to VPS
+        uses: easingthemes/ssh-deploy@v6.0.0
         with:
-          host: ${{ secrets.HOST }}
-          username: "deploy"
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          script: rm -rf /var/www/home/*
-
-      - name: Deploy to VPS via SCP
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.HOST }}
-          username: "deploy"
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          source: "build/*"
-          target: "/var/www/home"
-          strip_components: 1
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: "deploy"
+          SOURCE: "build/"
+          TARGET: "/var/www/home"
+          ARGS: "-rlgoDzvc --delete"
