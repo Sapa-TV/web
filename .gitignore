@@ -8,6 +8,7 @@ node_modules
 /.svelte-kit
 /build
 /coverage
+/dev-dist
 
 # OS
 .DS_Store
@@ -22,5 +23,7 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
 # Playwright
 test-results
+

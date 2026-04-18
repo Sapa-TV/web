@@ -6,7 +6,12 @@
 </script>
 
 <svelte:head>
-	<title>Sapa-tv website</title>
+	<title>Sapa-TV website</title>
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<meta name="theme-color" content="#00647b" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+	<meta name="apple-mobile-web-app-title" content="Sapa" />
 	<link href="https://fonts.googleapis.com" rel="preconnect" />
 	<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
 	<link

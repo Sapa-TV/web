@@ -12,8 +12,8 @@
 	--color-vk: #0077ff;
 	--color-youtube: #ff0000;
 
-	--font-headline: 'Manrope', sans-serif;
-	--font-body: 'Inter', sans-serif;
+	--font-headline: "Manrope", sans-serif;
+	--font-body: "Inter", sans-serif;
 }
 
 * {
@@ -22,7 +22,8 @@
 	box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
 	font-family: var(--font-body);
 	background: var(--color-bg);
 	color: var(--color-text);

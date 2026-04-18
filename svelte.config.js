@@ -5,7 +5,6 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: { $cmp: "src/components" },
-
 	},
 	compilerOptions: { runes: true },
 };
