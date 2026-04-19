@@ -1,6 +1,11 @@
+<script lang="ts">
+	import NotifyButton from "./NotifyButton.svelte";
+</script>
+
 <nav class="navbar">
 	<div class="navbar-inner">
 		<div class="logo">Sapa TV - скоро</div>
+		<NotifyButton />
 	</div>
 </nav>
 

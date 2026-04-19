@@ -12,10 +12,10 @@ export default defineConfig({
 				runtimeCaching: [
 					{
 						urlPattern: /^\/widgets\/.*/,
-						handler: 'NetworkOnly',
-					}
+						handler: "NetworkOnly",
+					},
 				],
-				globIgnores: ['**/widgets/**/*']
+				globIgnores: ["**/widgets/**/*"],
 			},
 			devOptions: {
 				enabled: true,

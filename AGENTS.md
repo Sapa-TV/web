@@ -1,3 +1,12 @@
+## Требования к коду
+
+- Использовать Svelte 5 с runes ($state, $derived, $effect)
+- Использовать $state вместо svelte stores
+- Использовать Result из ts-results (<Result.Ok | Result.Err>) вместо throw Error для обычных ошибок. throw Error использовать только при реальных невосстановимых ошибках
+- После завершения задачи обязательно проверить: `npm run check`, `npm run format`, `npm run lint`
+
+---
+
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:
 
 ## Available MCP Tools:
