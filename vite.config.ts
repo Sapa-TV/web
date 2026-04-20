@@ -7,15 +7,22 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({
+			registerType: 'autoUpdate',
 			workbox: {
-				navigateFallbackDenylist: [/^\/widgets/],
+				navigateFallbackDenylist: [/^\/widgets/, /^\/api/,],
 				runtimeCaching: [
 					{
 						urlPattern: /^\/widgets\/.*/,
 						handler: "NetworkOnly",
 					},
+					{
+						urlPattern: /^\/api\/.*/,
+						handler: "NetworkOnly",
+					},
 				],
-				globIgnores: ["**/widgets/**/*"],
+				globIgnores: ["**/widgets/**/*", "**/api/**/*"],
+				skipWaiting: true,
+				clientsClaim: true,
 			},
 			devOptions: {
 				enabled: true,
