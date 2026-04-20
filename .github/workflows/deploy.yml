@@ -30,6 +30,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: "deploy"
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
           SOURCE: "build/"
           TARGET: "/var/www/home"
           ARGS: "-rlgoDzvc --delete"
