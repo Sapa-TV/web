@@ -16,13 +16,25 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
+          node-version: "24"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build project
+      - name: Clean SvelteKit cache
+        run: |
+          rm -rf .svelte-kit node_modules/.vite
+          npx svelte-kit sync
+
+      - name: Build
         run: npm run build
+
+      - name: Check build output
+        if: always()
+        run: |
+          echo "=== Checking .svelte-kit/output ==="
+          ls -la .svelte-kit/output/ 2>/dev/null || echo "Directory not found"
+          ls -la .svelte-kit/output/client/ 2>/dev/null || echo "Client dir not found"
 
       - name: Deploy to VPS
         uses: easingthemes/ssh-deploy@v6.0.0

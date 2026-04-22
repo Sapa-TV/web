@@ -27,6 +27,4 @@ vite.config.ts.timestamp-*
 # Playwright
 test-results
 
-# Yalc
-yalc.lock
-/.yalc/
+deploy-log.txt

@@ -1,36 +1,18 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
-	import { api } from "$lib/api";
-	import { subscribeToNotifications } from "$lib/push";
+	import { subscribeToPush } from "$lib/notify-subscription";
 
 	let loading = $state(false);
 	let errorMessage = $state<string | null>(null);
 
 	async function handleClick() {
-		if (!browser) return;
-
 		loading = true;
 		errorMessage = null;
 
-		const vapidResult = await api.getVapidPublicKey();
-		if (vapidResult.isErr()) {
-			loading = false;
-			errorMessage = vapidResult.error.message;
-			return;
-		}
-
-		const subResult = await subscribeToNotifications(vapidResult.value.key);
-		if (subResult.isErr()) {
-			loading = false;
-			errorMessage = subResult.error.message;
-			return;
-		}
-
-		const postResult = await api.postSubscription(subResult.value);
+		const result = await subscribeToPush();
 		loading = false;
 
-		if (postResult.isErr()) {
-			errorMessage = postResult.error.message;
+		if (result.isErr()) {
+			errorMessage = result.error;
 		}
 	}
 </script>

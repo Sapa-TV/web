@@ -4,6 +4,9 @@
 - Использовать $state вместо svelte stores
 - Использовать Result из neverthrow (<Result.Ok | Result.Err>) вместо throw Error для обычных ошибок. throw Error использовать только при реальных невосстановимых ошибках
 - После завершения задачи обязательно проверить: `npm run check`, `npm run format`, `npm run lint`
+- Предпочитаемый способ запуска команд - через cmd /c (shell в Bash)
+- КОНФИГИ (tsconfig.json, svelte.config.js, vite.config.ts и т.д.) МЕНЯТЬ ЗАПРЕЩЕНО. Если надо изменить конфиг - спросить разрешения пользователя
+- НИКОГДА не запускать npm run dev - это ломает ручное тестирование пользователя
 
 ---
 

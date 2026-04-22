@@ -26,8 +26,11 @@ export default defineConfig(
 		languageOptions: { globals: { ...globals.browser, ...globals.node } },
 		rules: {
 			"no-undef": "off",
-			"no-unused-vars": "error",
-			"no-console": ["error", { allow: ["warn", "error"] }],
+			"no-unused-vars": [
+				"error",
+				{ argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+			],
+			"no-console": ["warn", { allow: ["warn", "error"] }],
 			"svelte/no-navigation-without-resolve": "off",
 			"@typescript-eslint/no-magic-numbers": [
 				"error",
