@@ -1,41 +1,57 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-	import { getVapidKey, subscribePush } from "$lib/api";
+	import { api } from "$lib/api";
 	import { subscribeToNotifications } from "$lib/push";
+
+	let loading = $state(false);
+	let errorMessage = $state<string | null>(null);
 
 	async function handleClick() {
 		if (!browser) return;
 
-		const keyResult = await getVapidKey();
-		if (keyResult.err) {
-			alert("Ошибка: " + keyResult.val);
+		loading = true;
+		errorMessage = null;
+
+		const vapidResult = await api.getVapidPublicKey();
+		if (vapidResult.isErr()) {
+			loading = false;
+			errorMessage = vapidResult.error.message;
 			return;
 		}
 
-		const subscriptionResult = await subscribeToNotifications(keyResult.val);
-		if (subscriptionResult.err) {
-			alert("Ошибка: " + subscriptionResult.val);
+		const subResult = await subscribeToNotifications(vapidResult.value.key);
+		if (subResult.isErr()) {
+			loading = false;
+			errorMessage = subResult.error.message;
 			return;
 		}
 
-		const pushResult = await subscribePush(subscriptionResult.val);
-		if (pushResult.err) {
-			alert("Ошибка: " + pushResult.val);
-			return;
-		}
+		const postResult = await api.postSubscription(subResult.value);
+		loading = false;
 
-		alert("Подписка успешна!");
+		if (postResult.isErr()) {
+			errorMessage = postResult.error.message;
+		}
 	}
 </script>
 
-<button class="notify-btn" onclick={handleClick}>
-	<svg viewBox="0 0 24 24"
-		><path
-			d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"
-		/></svg
-	>
-	Уведомления
+<button class="notify-btn" onclick={handleClick} disabled={loading}>
+	{#if loading}
+		<span class="spinner"></span>
+		Подписка...
+	{:else}
+		<svg viewBox="0 0 24 24"
+			><path
+				d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"
+			/></svg
+		>
+		Уведомления
+	{/if}
 </button>
+
+{#if errorMessage}
+	<p class="error">{errorMessage}</p>
+{/if}
 
 <style>
 	.notify-btn {
@@ -69,5 +85,32 @@
 		width: 1.5rem;
 		height: 1.5rem;
 		fill: white;
+	}
+
+	.notify-btn:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
+	.spinner {
+		display: inline-block;
+		width: 1rem;
+		height: 1rem;
+		border: 2px solid rgba(255, 255, 255, 0.3);
+		border-top-color: white;
+		border-radius: 50%;
+		animation: spin 0.6s linear infinite;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.error {
+		margin-top: 0.5rem;
+		font-size: 0.875rem;
+		color: #ef4444;
 	}
 </style>

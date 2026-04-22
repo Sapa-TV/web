@@ -1,4 +1,5 @@
-import { Err, Ok, Result } from "ts-results";
+import { err, ok, ResultAsync } from "neverthrow";
+import type { PushSubscriptionRequest } from "$lib/api";
 
 const MODULO_FOUR = 4;
 
@@ -19,14 +20,14 @@ export function urlBase64ToUint8Array(base64: string): BufferSource {
 
 export async function subscribeToNotifications(
 	vapidKey: string,
-): Promise<Result<PushSubscriptionJSON, string>> {
+): Promise<ResultAsync<PushSubscriptionRequest, Error>> {
 	if (!("serviceWorker" in navigator)) {
-		return Err("Service workers not supported");
+		return err(new Error("Service workers not supported"));
 	}
 
 	const permission = await Notification.requestPermission();
 	if (permission !== "granted") {
-		return Err("Notifications not allowed");
+		return err(new Error("Notifications not allowed"));
 	}
 
 	try {
@@ -36,8 +37,15 @@ export async function subscribeToNotifications(
 			applicationServerKey: urlBase64ToUint8Array(vapidKey),
 		});
 
-		return Ok(subscription.toJSON());
+		const json = subscription.toJSON();
+		return ok({
+			endpoint: json.endpoint ?? "",
+			keys: {
+				auth: json.keys?.auth ?? "",
+				p256dh: json.keys?.p256dh ?? "",
+			},
+		} satisfies PushSubscriptionRequest);
 	} catch {
-		return Err("Failed to subscribe");
+		return err(new Error("Failed to subscribe"));
 	}
 }

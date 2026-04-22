@@ -75,6 +75,7 @@
 		"vitest-browser-svelte": "^2.0.2"
 	},
 	"dependencies": {
-		"ts-results": "^3.3.0"
+		"api-contracts": "github:Sapa-TV/api-contracts",
+		"neverthrow": "^8.2.0"
 	}
 }

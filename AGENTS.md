@@ -2,7 +2,7 @@
 
 - Использовать Svelte 5 с runes ($state, $derived, $effect)
 - Использовать $state вместо svelte stores
-- Использовать Result из ts-results (<Result.Ok | Result.Err>) вместо throw Error для обычных ошибок. throw Error использовать только при реальных невосстановимых ошибках
+- Использовать Result из neverthrow (<Result.Ok | Result.Err>) вместо throw Error для обычных ошибок. throw Error использовать только при реальных невосстановимых ошибках
 - После завершения задачи обязательно проверить: `npm run check`, `npm run format`, `npm run lint`
 
 ---

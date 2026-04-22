@@ -7,9 +7,9 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({
-			registerType: 'autoUpdate',
+			registerType: "autoUpdate",
 			workbox: {
-				navigateFallbackDenylist: [/^\/widgets/, /^\/api/,],
+				navigateFallbackDenylist: [/^\/widgets/, /^\/api/],
 				runtimeCaching: [
 					{
 						urlPattern: /^\/widgets\/.*/,
@@ -44,6 +44,20 @@ export default defineConfig({
 			},
 		}),
 	],
+	optimizeDeps: {
+		exclude: ["api-contracts"],
+	},
+	server: {
+		watch: {
+			ignored: ["!**/node_modules/api-contracts/**"],
+		},
+		proxy: {
+			"/api": {
+				target: "http://localhost:3000",
+				changeOrigin: true,
+			},
+		},
+	},
 	test: {
 		expect: { requireAssertions: true },
 		projects: [

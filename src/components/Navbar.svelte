@@ -1,11 +1,15 @@
 <script lang="ts">
 	import NotifyButton from "./NotifyButton.svelte";
+	import PushSend from "./PushSend.svelte";
 </script>
 
 <nav class="navbar">
 	<div class="navbar-inner">
 		<div class="logo">Sapa TV - скоро</div>
 		<NotifyButton />
+	</div>
+	<div class="push-bar">
+		<PushSend />
 	</div>
 </nav>
 
@@ -35,5 +39,11 @@
 		font-weight: 900;
 		letter-spacing: -0.02em;
 		color: var(--color-text);
+	}
+
+	.push-bar {
+		max-width: 900px;
+		margin: 0 auto;
+		padding-top: 0.5rem;
 	}
 </style>
