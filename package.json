@@ -81,6 +81,8 @@
 		"workbox-window": "^7.4.0"
 	},
 	"dependencies": {
+		"@iconify-json/lucide": "^1.2.105",
+		"@iconify-json/simple-icons": "^1.2.80",
 		"api-contracts": "github:Sapa-TV/api-contracts",
 		"neverthrow": "^8.2.0"
 	}
