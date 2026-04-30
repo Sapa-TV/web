@@ -3,6 +3,7 @@
 	import { pwaInfo } from "virtual:pwa-info";
 	import PushToast from "$cmp/PushToast.svelte";
 	import "../app.css";
+	import "../new.css";
 
 	interface ToastData {
 		title: string;

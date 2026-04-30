@@ -1,33 +1,35 @@
 @import "tailwindcss";
 
-@theme {
-	--color-bg: #eff8ff;
-	--color-surface: #eff8ff;
-	--color-text: #003346;
-	--color-primary: #00647b;
-	--color-primary-container: #00cffc;
-	--color-surface-variant: #b5e3ff;
-	--color-on-surface-variant: #346178;
-	--glass: rgba(239, 248, 255, 0.4);
+@layer base {
+	@theme {
+		--color-bg: #eff8ff;
+		--color-surface: #eff8ff;
+		--color-text: #003346;
+		--color-primary: #00647b;
+		--color-primary-container: #00cffc;
+		--color-surface-variant: #b5e3ff;
+		--color-on-surface-variant: #346178;
+		--glass: rgba(239, 248, 255, 0.4);
 
-	--color-twitch: #9146ff;
-	--color-vk: #0077ff;
-	--color-youtube: #ff0000;
+		--color-twitch: #9146ff;
+		--color-vk: #0077ff;
+		--color-youtube: #ff0000;
 
-	--font-headline: "Manrope", sans-serif;
-	--font-body: "Inter", sans-serif;
-}
+		--font-headline: "Manrope", sans-serif;
+		--font-body: "Inter", sans-serif;
+	}
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
 
-html,
-body {
-	font-family: var(--font-body);
-	background: var(--color-bg);
-	color: var(--color-text);
-	min-height: 100vh;
+	html,
+	body {
+		font-family: var(--font-body);
+		background: var(--color-bg);
+		color: var(--color-text);
+		min-height: 100vh;
+	}
 }
