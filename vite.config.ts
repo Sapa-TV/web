@@ -9,6 +9,8 @@ export default defineConfig({
 			strategies: "injectManifest",
 			registerType: "autoUpdate",
 			injectRegister: false,
+			srcDir: "src",
+			filename: "service-worker.ts",
 			workbox: {
 				navigateFallbackDenylist: [/^\/widgets/, /^\/api/],
 				runtimeCaching: [
