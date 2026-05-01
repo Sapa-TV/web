@@ -39,6 +39,9 @@
 	"devDependencies": {
 		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^9.39.2",
+		"@iconify-json/lucide": "^1.2.105",
+		"@iconify-json/simple-icons": "^1.2.80",
+		"@iconify-json/tabler": "^1.2.33",
 		"@playwright/test": "^1.58.1",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.50.2",
@@ -81,8 +84,6 @@
 		"workbox-window": "^7.4.0"
 	},
 	"dependencies": {
-		"@iconify-json/lucide": "^1.2.105",
-		"@iconify-json/simple-icons": "^1.2.80",
 		"api-contracts": "github:Sapa-TV/api-contracts",
 		"neverthrow": "^8.2.0"
 	}

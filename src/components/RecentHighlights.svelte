@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SparklesIcon from "~icons/lucide/sparkles";
+
 	interface Highlight {
 		emoji: string;
 		text: string;
@@ -23,25 +25,7 @@
 
 <div class="relative bg-card border border-border rounded-3xl shadow-lg p-6">
 	<div class="flex items-center gap-2 mb-4">
-		<svg
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="w-5 h-5 text-accent"
-			aria-hidden="true"
-		>
-			<path
-				d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
-			></path>
-			<path d="M20 2v4"></path>
-			<path d="M22 4h-4"></path>
-			<circle cx="4" cy="20" r="2"></circle>
-		</svg>
+		<SparklesIcon class="w-5 h-5 text-accent" />
 		<h3 class="font-bold text-lg">Recent Highlights</h3>
 	</div>
 	<div class="space-y-3">
