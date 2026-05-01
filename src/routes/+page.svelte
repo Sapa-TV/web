@@ -50,7 +50,12 @@
 <div class="subsection">
 	<StreamPlayer />
 	<div class="stream-action">
-		<a href="https://twitch.tv" target="_blank" rel="noopener" class="btn btn-primary">
+		<a
+			href="https://twitch.tv"
+			target="_blank"
+			rel="noopener"
+			class="btn btn-primary"
+		>
 			▶️ Открыть на Twitch
 		</a>
 	</div>

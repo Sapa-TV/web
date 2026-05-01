@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Footer from "$cmp/Footer.svelte";
+	import Header from "$cmp/Header.svelte";
 	import PushToast from "$cmp/PushToast.svelte";
 	import { onMount } from "svelte";
 	import { pwaInfo } from "virtual:pwa-info";
-	import Footer from "$cmp/Footer.svelte";
-	import Header from "$cmp/Header.svelte";
 	import "../app.css";
 	import "../new.css";
 	import "./global.css";
@@ -49,7 +49,7 @@
 
 <Header />
 
-<main class="container">
+<main class="container with-header">
 	{@render children()}
 </main>
 
@@ -63,3 +63,9 @@
 		onclose={() => (toast = null)}
 	/>
 {/if}
+
+<style>
+	.with-header {
+		padding-top: calc(var(--nav-height, 64px) + 20px);
+	}
+</style>

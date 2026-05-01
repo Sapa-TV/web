@@ -1,7 +1,7 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import { SvelteKitPWA } from "@vite-pwa/sveltekit";
-import { defineConfig } from "vite";
 import Icons from "unplugin-icons/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
 	plugins: [
@@ -11,26 +11,30 @@ export default defineConfig({
 		}),
 		SvelteKitPWA({
 			strategies: "injectManifest",
-			registerType: "autoUpdate",
+			registerType: process.env.NODE_ENV === 'development' ? 'prompt' : 'autoUpdate',
 			injectRegister: false,
 			srcDir: "src",
 			filename: "service-worker.ts",
-			workbox: {
-				navigateFallbackDenylist: [/^\/widgets/, /^\/api/],
-				runtimeCaching: [
-					{
-						urlPattern: /^\/widgets\/.*/,
-						handler: "NetworkOnly",
-					},
-					{
-						urlPattern: /^\/api\/.*/,
-						handler: "NetworkOnly",
-					},
-				],
+			injectManifest: {
+				globPatterns: ["**/*.{js,css,html,ico,png,svg,txt}"],
 				globIgnores: ["**/widgets/**/*", "**/api/**/*"],
-				skipWaiting: true,
-				clientsClaim: true,
 			},
+			// workbox: {
+			// 	navigateFallbackDenylist: [/^\/widgets/, /^\/api/],
+			// 	runtimeCaching: [
+			// 		{
+			// 			urlPattern: /^\/widgets\/.*/,
+			// 			handler: "NetworkOnly",
+			// 		},
+			// 		{
+			// 			urlPattern: /^\/api\/.*/,
+			// 			handler: "NetworkOnly",
+			// 		},
+			// 	],
+			// 	globIgnores: ["**/widgets/**/*", "**/api/**/*"],
+			// 	skipWaiting: true,
+			// 	clientsClaim: true,
+			// },
 			devOptions: {
 				enabled: true,
 				type: "module",

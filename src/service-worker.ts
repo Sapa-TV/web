@@ -1,12 +1,18 @@
 /// <reference lib="webworker" />
 
-import { precacheAndRoute } from "workbox-precaching";
+import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
+
+export { };
 
 precacheAndRoute(self.__WB_MANIFEST);
-
-export {};
+cleanupOutdatedCaches();
 
 declare const self: ServiceWorkerGlobalScope;
+
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", (event) => { }
+	// event.waitUntil(self.clients.claim()),
+);
 
 interface PushData {
 	title?: string;
