@@ -15,10 +15,10 @@
 
 <button
 	onclick={toggleTheme}
-	class="size-9 rounded-full w-10 h-10 bg-card hover:bg-primary/20 border border-border shadow-lg flex items-center justify-center transition-all hover:text-accent-foreground"
+	class="size-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center transition-all hover:text-accent-foreground"
 	aria-label="Toggle theme"
 >
-	<div style={isDark ? "transform: rotate(180deg)" : ""}>
+	<div class="theme-icon" class:rotate={isDark}>
 		{#if isDark}
 			<SunIcon class="w-5 h-5 text-primary" />
 		{:else}
@@ -26,3 +26,18 @@
 		{/if}
 	</div>
 </button>
+
+<style>
+	.theme-icon {
+		&.rotate {
+			transform: rotate(180deg);
+		}
+		pointer-events: none;
+		& :global(svg) {
+			pointer-events: none;
+		}
+	}
+	button {
+		cursor: pointer;
+	}
+</style>

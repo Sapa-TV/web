@@ -27,10 +27,6 @@
 					<div class="text-8xl" style="transform: translateY(-4.70127px)">
 						😺
 					</div>
-					<div class="relative -mt-16">
-						<div class="w-24 h-8 bg-accent mx-auto rounded-t-full"></div>
-						<div class="w-32 h-2 bg-accent mx-auto"></div>
-					</div>
 				</div>
 			</div>
 			<div

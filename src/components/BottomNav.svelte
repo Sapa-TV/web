@@ -27,7 +27,7 @@
 	}
 </script>
 
-<nav class="fixed bottom-0 left-0 right-0 z-50 p-4 md:top-0 md:bottom-auto">
+<nav class="fixed bottom-0 left-0 right-0 z-30 p-4 md:top-0 md:bottom-auto">
 	<div class="max-w-md mx-auto">
 		<div
 			class="bg-card/95 backdrop-blur-md border border-border rounded-3xl shadow-xl p-2 flex items-center justify-around"
