@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEKO SHINOBI SANCTUARY | Official Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #ff6b9d;
+      --primary-glow: rgba(255, 107, 157, 0.6);
+      --accent: #00f5d4;
+      --accent-glow: rgba(0, 245, 212, 0.6);
+      --bg-dark: #0a0a12;
+      --bg-panel: rgba(25, 15, 40, 0.7);
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: #9ca3af;
+      --radius: 16px;
+      --nav-height: 70px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: radial-gradient(circle at 10% 20%, #2d1b4e 0%, var(--bg-dark) 60%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- LAYOUT & UTILS --- */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .hidden { display: none !important; }
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 800; text-decoration: none;
+      cursor: pointer; transition: var(--transition); border: none; font-size: 0.95rem;
+    }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 15px var(--primary-glow); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px var(--primary-glow); }
+    .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: var(--bg-dark); }
+    .btn-small { padding: 0.5rem 1rem; font-size: 0.8rem; }
+
+    /* --- HEADER --- */
+    header {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10, 10, 18, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); height: var(--nav-height);
+      display: flex; align-items: center;
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .logo {
+      font-family: 'Bungee Shade', cursive; font-size: 1.4rem; color: var(--accent);
+      text-decoration: none; text-shadow: 0 0 15px var(--accent-glow);
+    }
+    .nav-menu { list-style: none; display: flex; gap: 2rem; }
+    .nav-link {
+      color: var(--text-muted); text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      padding: 0.5rem 0; position: relative; transition: var(--transition); cursor: pointer;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--text); }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+      background: var(--primary); transition: var(--transition);
+    }
+    .nav-link.active::after, .nav-link:hover::after { width: 100%; }
+    .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+    /* --- PAGE TRANSITIONS --- */
+    main { margin-top: var(--nav-height); min-height: calc(100vh - var(--nav-height) - 60px); padding-bottom: 4rem; }
+    .page {
+      display: none; opacity: 0; transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease; padding-top: 2rem;
+    }
+    .page.active { display: block; }
+    .page.entering { animation: pageEnter 0.5s forwards; }
+    @keyframes pageEnter { to { opacity: 1; transform: translateY(0); } }
+
+    /* --- SECTIONS --- */
+    .section-title {
+      font-family: 'Bungee Shade', cursive; font-size: 1.8rem; margin-bottom: 1.5rem;
+      text-align: center; color: var(--text); letter-spacing: -0.5px;
+    }
+    .section-title span { color: var(--primary); }
+
+    .subsection { margin-bottom: 4rem; }
+    .subsection-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .subsection-title { font-size: 1.3rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 0.5rem; }
+
+    /* --- HOME: HERO & PLAYER --- */
+    .hero-banner {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .hero-banner h1 { font-family: 'Bungee Shade', cursive; font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 0.5rem; line-height: 1.2; }
+    .hero-banner p { color: var(--text-muted); font-size: 1.1rem; }
+
+    .stream-container {
+      max-width: 800px; margin: 0 auto 2rem auto;
+      background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .stream-top-bar {
+      padding: 0.8rem 1rem; background: rgba(0,0,0,0.4); display: flex; justify-content: space-between; align-items: center;
+    }
+    .live-badge {
+      background: #ff0033; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .live-badge::before { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; animation: blink 1s infinite; }
+    .stream-viewers { font-size: 0.8rem; color: var(--text-muted); }
+    .stream-embed {
+      aspect-ratio: 16/9; background: #12121c; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;
+    }
+    .play-btn-circle {
+      width: 70px; height: 70px; background: rgba(255,255,255,0.1); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; transition: var(--transition); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);
+    }
+    .play-btn-circle:hover { transform: scale(1.1); background: var(--primary); border-color: var(--primary); }
+    .play-btn-circle::after { content: ''; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 20px solid #fff; margin-left: 4px; }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* --- CLIPS GRID --- */
+    .clips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .clip-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      transition: var(--transition); position: relative; 
+    }
+    .clip-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .clip-thumb {
+      height: 140px; background: #222235; position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .clip-thumb span { font-size: 2.5rem; opacity: 0.8; }
+    .clip-duration {
+      position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8);
+      color: #fff; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: 700;
+    }
+    .clip-info { padding: 0.8rem; }
+    .clip-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .clip-meta { color: var(--text-muted); font-size: 0.75rem; display: flex; justify-content: space-between; }
+
+    /* --- GALLERY TEASER --- */
+    .gallery-grid-mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .gallery-mini-item {
+      aspect-ratio: 1; background: #1e1e2f; border-radius: 12px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 2rem;
+      transition: var(--transition); cursor: pointer; position: relative; overflow: hidden;
+    }
+    .gallery-mini-item:hover { border-color: var(--primary); transform: scale(1.05); }
+    .gallery-mini-item::after { content: '🔍'; position: absolute; opacity: 0; font-size: 1.5rem; transition: var(--transition); }
+    .gallery-mini-item:hover::after { opacity: 1; }
+
+    /* --- ABOUT PAGE --- */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: center; }
+    .about-avatar {
+      width: 100%; max-width: 300px; aspect-ratio: 1/1; background: linear-gradient(135deg, #2d1b4e, #16213e);
+      border-radius: 30px; margin: 0 auto; display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; border: 2px solid var(--primary); box-shadow: 0 0 30px var(--primary-glow);
+    }
+    .spec-list { list-style: none; display: grid; gap: 0.8rem; margin-top: 1.5rem; }
+    .spec-item { display: flex; align-items: center; gap: 0.8rem; background: var(--bg-card); padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); }
+    .spec-icon { font-size: 1.2rem; width: 24px; text-align: center; }
+    .spec-value { font-weight: 700; margin-left: auto; }
+
+    /* --- GAMES PAGE --- */
+    .game-list { display: grid; gap: 1rem; margin-bottom: 3rem; }
+    .game-card {
+      display: flex; align-items: center; gap: 1.5rem; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; transition: var(--transition);
+    }
+    .game-card:hover { background: rgba(255,255,255,0.05); border-color: var(--primary); }
+    .game-icon { width: 60px; height: 60px; background: #1e1e2f; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .game-info { flex-grow: 1; }
+    .progress-container { margin-top: 0.5rem; display: flex; align-items: center; gap: 0.8rem; }
+    .progress-bar { flex-grow: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+    .status-tag { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 800; }
+    .status-platinum { background: linear-gradient(45deg, #FFD700, #DAA520); color: #000; }
+    .status-gold { background: #DAA520; color: #000; }
+
+    /* --- CONTACT PAGE --- */
+    .contact-box { background: var(--bg-panel); border: 1px solid var(--border); padding: 3rem; border-radius: var(--radius); max-width: 600px; margin: 0 auto; text-align: center; }
+    .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem; }
+    .social-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 1rem;
+      border-radius: 12px; text-decoration: none; color: var(--text); font-weight: 700;
+      transition: var(--transition); border: 1px solid var(--border); background: var(--bg-card);
+    }
+    .social-btn:hover { transform: scale(1.02); }
+    .social-btn.discord:hover { border-color: #7289da; color: #7289da; background: rgba(114,137,218,0.1); }
+    .social-btn.twitch:hover { border-color: #9146ff; color: #9146ff; background: rgba(145,70,255,0.1); }
+
+    /* --- FOOTER --- */
+    footer { background: #05050a; padding: 2rem 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed; top: var(--nav-height); left: 0; width: 100%; background: rgba(10,10,18,0.98);
+        flex-direction: column; padding: 2rem; gap: 1.5rem; transform: translateY(-120%); opacity: 0;
+        transition: var(--transition); pointer-events: none; backdrop-filter: blur(10px);
+      }
+      .nav-menu.active { transform: translateY(0); opacity: 1; pointer-events: all; }
+      .mobile-toggle { display: block; }
+      .about-grid { grid-template-columns: 1fr; }
+      .clips-grid { grid-template-columns: 1fr; }
+      .gallery-grid-mini { grid-template-columns: repeat(2, 1fr); }
+      .game-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .game-icon { width: 100%; height: 100px; }
+      .social-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo" onclick="navigate('home')">🐱 NEKO.SAPA</a>
+      <button class="mobile-toggle" aria-label="Меню" onclick="toggleMenu()">☰</button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a class="nav-link active" onclick="navigate('home')">Главная</a></li>
+        <li><a class="nav-link" onclick="navigate('games')">Игры</a></li>
+        <li><a class="nav-link" onclick="navigate('about')">Обо мне</a></li>
+        <li><a class="nav-link" onclick="navigate('gallery')">Галерея</a></li>
+        <li><a class="nav-link" onclick="navigate('contact')">Связь</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ================= HOME PAGE ================= -->
+    <section id="home" class="page active entering">
+      
+      <div class="hero-banner">
+        <h1>Neko Shinobi <span style="color:var(--primary)">Sanctuary</span></h1>
+        <p>Уютный стриминг, хардкорные боссы и котики 🐾</p>
+      </div>
+
+      <!-- COMPACT PLAYER -->
+      <div class="subsection">
+        <div class="stream-container">
+          <div class="stream-top-bar">
+            <div style="display:flex; align-items:center; gap:0.8rem;">
+              <div class="live-badge">LIVE</div>
+              <span style="font-weight:700; font-size:0.9rem;">Elden Ring: Shadow of the Erdtree</span>
+            </div>
+            <div class="stream-viewers">👁️ 1.2k viewers</div>
+          </div>
+          <div class="stream-embed">
+            <div class="play-btn-circle"></div>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <a href="#" class="btn btn-primary btn-small">▶️ Открыть на Twitch</a>
+        </div>
+      </div>
+
+      <!-- RECENT CLIPS -->
+      <div class="subsection">
+        <div class="subsection-header">
+          <div class="subsection-title">✂️ Последние нарезки</div>
+          <a href="#" style="color:var(--accent); font-size:0.85rem; font-weight:700; text-decoration:none;">Все клипы &rarr;</a>
+        </div>
+        <div class="clips-grid">
+          <div class="clip-card">
+            <div class="clip-thumb"><span>⚔️</span><div class="clip-duration">0:45</div></div>
+            <div class="clip-info">
+              <div class="clip-title">No Hit Malenia Run</div>
+              <div class="clip-meta"><span>Elden Ring</span><span>2д назад</span></div>
+            </div>
+          </div>
+          <div class="clip-card">
+            <div class="clip-thumb"><span>😱</span><div class="clip-duration">1:20</div></div>
+            <div class="clip-info">
+              <div class="clip-title">Реакция на скример</div>
+              <div class="clip-meta"><span>Horror Night</span><span>5д назад</span></div>
+            </div>
+          </div>
+          <div class="clip-card">
+            <div class="clip-thumb"><span>🤣</span><div class="clip-duration">0:30</div></div>
+            <div class="clip-info">
+              <div class="clip-title">Фейл на скорости</div>
+              <div class="clip-meta"><span>Sekiro</span><span>1н назад</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALLERY TEASER -->
+      <div class="subsection">
+        <div class="subsection-header">
+          <div class="subsection-title">🎨 Арт и Скриншоты</div>
+          <a href="#" onclick="navigate('gallery')" style="color:var(--accent); font-size:0.85rem; font-weight:700; text-decoration:none;">Открыть галерею &rarr;</a>
+        </div>
+        <div class="gallery-grid-mini">
+          <div class="gallery-mini-item">🌸</div>
+          <div class="gallery-mini-item">🏯</div>
+          <div class="gallery-mini-item">⚔️</div>
+          <div class="gallery-mini-item">🍥</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= GAMES PAGE ================= -->
+    <section id="games" class="page">
+      <h2 class="section-title">Библиотека <span>Игр</span></h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">🎮 В процессе (In Progress)</h3>
+        <div class="game-list">
+          <div class="game-card">
+            <div class="game-icon">⚔️</div>
+            <div class="game-info">
+              <div class="game-title">Elden Ring: Shadow of the Erdtree</div>
+              <div class="progress-container">
+                <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+                <span style="font-size:0.75rem; color:var(--accent);">65%</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-card">
+            <div class="game-icon">🤖</div>
+            <div class="game-info">
+              <div class="game-title">Armored Core VI</div>
+              <div class="progress-container">
+                <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
+                <span style="font-size:0.75rem; color:var(--accent);">30%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">🏆 Пройденные (Completed)</h3>
+        <div class="game-list">
+          <div class="game-card">
+            <div class="game-icon">🐺</div>
+            <div class="game-info">
+              <div class="game-title">Sekiro: Shadows Die Twice</div>
+              <div style="margin-top:0.5rem; display:flex; gap:0.5rem;">
+                <span class="status-tag status-platinum">🏅 100%</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-card">
+            <div class="game-icon">🌿</div>
+            <div class="game-info">
+              <div class="game-title">Hollow Knight</div>
+              <div style="margin-top:0.5rem; display:flex; gap:0.5rem;">
+                <span class="status-tag status-gold">🥇 112%</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-card">
+            <div class="game-icon">🗡️</div>
+            <div class="game-info">
+              <div class="game-title">Bloodborne</div>
+              <div style="margin-top:0.5rem; display:flex; gap:0.5rem;">
+                <span class="status-tag status-platinum">🏅 Platinum</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">📅 В очереди (Queue)</h3>
+        <div class="game-list">
+          <div class="game-card">
+            <div class="game-icon">🦝</div>
+            <div class="game-info"><div class="game-title">Black Myth: Wukong</div><div class="clip-meta">Release Day 1</div></div>
+          </div>
+          <div class="game-card">
+            <div class="game-icon">🗼</div>
+            <div class="game-info"><div class="game-title">Final Fantasy VII Rebirth</div><div class="clip-meta">J-RPG</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT PAGE ================= -->
+    <section id="about" class="page">
+      <h2 class="section-title">Кто такая <span>Sapa?</span></h2>
+      <div class="about-grid">
+        <div class="about-avatar">🐱</div>
+        <div class="about-text">
+          <h3>Никнейм: NekoSapa</h3>
+          <p>Привет! Я стример, геймер и просто любитель всего милого и сложного одновременно. Мой путь начался с простых инди-игр, а теперь я пытаюсь пройти всё на уровне "No Hit".</p>
+          <p>В свободное время рисую арт, пью матча-латте и общаюсь с вами в чате.</p>
+          
+          <h3>🖥️ Мой Арсенал</h3>
+          <ul class="spec-list">
+            <li class="spec-item"><span class="spec-icon">🎮</span> <span class="spec-label">Console</span> <span class="spec-value">PlayStation 5</span></li>
+            <li class="spec-item"><span class="spec-icon">💻</span> <span class="spec-label">PC</span> <span class="spec-value">RTX 4080 / Ryzen 7</span></li>
+            <li class="spec-item"><span class="spec-icon">🎤</span> <span class="spec-label">Mic</span> <span class="spec-value">Shure SM7B</span></li>
+            <li class="spec-item"><span class="spec-icon">🎧</span> <span class="spec-label">Headset</span> <span class="spec-value">HyperX Cloud II</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY PAGE ================= -->
+    <section id="gallery" class="page">
+      <h2 class="section-title">Галерея <span>Моментов</span></h2>
+      <div class="gallery-grid-mini" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+        <div class="gallery-mini-item" style="height: 200px;">🌸</div>
+        <div class="gallery-mini-item" style="height: 200px;">🏯</div>
+        <div class="gallery-mini-item" style="height: 200px;">⚔️</div>
+        <div class="gallery-mini-item" style="height: 200px;">🍥</div>
+        <div class="gallery-mini-item" style="height: 200px;">🐉</div>
+        <div class="gallery-mini-item" style="height: 200px;">👻</div>
+        <div class="gallery-mini-item" style="height: 200px;">🏆</div>
+        <div class="gallery-mini-item" style="height: 200px;">🎨</div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT PAGE ================= -->
+    <section id="contact" class="page">
+      <h2 class="section-title">Связаться <span>с нами</span></h2>
+      <div class="contact-box">
+        <p style="margin-bottom: 2rem; color: var(--text-muted);">Есть вопрос, предложение или хочешь засабить? Пиши в наши соцсети!</p>
+        
+        <div class="social-grid">
+          <a href="#" class="social-btn discord">💬 Discord</a>
+          <a href="#" class="social-btn twitch">🟣 Twitch</a>
+        </div>
+
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem;">
+          <a href="mailto:hello@sapa-tv.ru" class="btn btn-outline">📧 hello@sapa-tv.ru</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">Правила</a>
+        <a href="#">Донат</a>
+      </div>
+      <p>© 2026 Neko Shinobi Sanctuary. Created with 💖 and ⚔️.</p>
+    </div>
+  </footer>
+
+  <script>
+    function navigate(pageId) {
+      event.preventDefault();
+      document.getElementById('nav-menu').classList.remove('active');
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if(link.getAttribute('onclick').includes(`'${pageId}'`)) {
+          link.classList.add('active');
+        }
+      });
+
+      const currentPage = document.querySelector('.page.active');
+      const nextPage = document.getElementById(pageId);
+
+      if (currentPage && currentPage.id !== pageId) {
+        currentPage.style.opacity = '0';
+        currentPage.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          currentPage.classList.remove('active');
+          currentPage.style.display = 'none';
+          
+          nextPage.classList.add('active');
+          nextPage.style.display = 'block';
+          
+          void nextPage.offsetWidth;
+          
+          nextPage.style.opacity = '1';
+          nextPage.style.transform = 'translateY(0)';
+        }, 300);
+      } else if (!currentPage) {
+        nextPage.classList.add('active');
+        nextPage.style.display = 'block';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const home = document.getElementById('home');
+      home.style.opacity = '1';
+      home.style.transform = 'translateY(0)';
+    });
+  </script>
+</body>
+</html>
+
